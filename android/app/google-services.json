@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "945388709393",
+    "project_id": "mern-test-77ef5",
+    "storage_bucket": "mern-test-77ef5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945388709393:android:23b7e01af8ed1b4966b3b0",
+        "android_client_info": {
+          "package_name": "com.danielPantalenaMernTest.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945388709393-jescdiiiua030d08cl5re3sq351jm7op.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danielPantalenaMernTest.mobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "945388709393-5l9875e85ultklgp658v0oesbmrftdcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG22fcvuUrCB2kW4ApsSr8XUIAWBvMWGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945388709393-5l9875e85ultklgp658v0oesbmrftdcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
