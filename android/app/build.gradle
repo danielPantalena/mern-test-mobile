@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.daniel-pantalena-mern-test.mobile"
+        applicationId "com.danielPantalenaMernTest.mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
