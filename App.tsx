@@ -17,6 +17,7 @@ import {
   Text,
   StatusBar,
   Alert,
+  Button,
 } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 
@@ -33,6 +34,10 @@ const App = () => {
     return unsubscribe;
   }, []);
 
+  const handleNotification = () => {
+    console.log('hii');
+  };
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -43,6 +48,7 @@ const App = () => {
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>This page is for</Text>
           </View>
+          <Button title="NOTIFICATION" onPress={handleNotification} />
         </ScrollView>
       </SafeAreaView>
     </>
