@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,13 +16,23 @@ import {
   View,
   Text,
   StatusBar,
+  Alert,
 } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert(remoteMessage?.notification?.body ?? '');
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
