@@ -23,17 +23,16 @@ import messaging from '@react-native-firebase/messaging';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
+import {sendNotification, registerToken} from './services/api';
+
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
-  const [deviceToken, setDeviceToken] = useState('');
-
-  console.log('deviceToken', deviceToken);
 
   useEffect(() => {
     messaging()
       .getToken()
-      .then((response) => setDeviceToken(response));
+      .then((response) => registerToken(response));
 
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       Alert.alert(remoteMessage?.notification?.body ?? '');
@@ -41,10 +40,6 @@ const App = () => {
 
     return unsubscribe;
   }, []);
-
-  const handleNotification = () => {
-    console.log('hii');
-  };
 
   return (
     <>
@@ -56,7 +51,14 @@ const App = () => {
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>This page is for</Text>
           </View>
-          <Button title="NOTIFICATION" onPress={handleNotification} />
+          <Button
+            title="NOTIFICATION"
+            onPress={() =>
+              sendNotification({message: 'hi'}, [
+                'czEJ_PhqRoGU0w4eumx043:APA91bGFpxAAH7IyBjMvX_Jo8uCpXBivJZ68OLJBlzlRWOcIvDUesXWQashkGkEWTnjsOVEpaJm42rYiZ5NUgVUfltyWvhsWhGKGlU47Q-YReyNQNo91S4Pupb_Hi_YE9F5mz04xu_-h',
+              ])
+            }
+          />
         </ScrollView>
       </SafeAreaView>
     </>

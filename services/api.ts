@@ -1,13 +1,10 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-const baseURL = process.env.REACT_APP_SERVER ?? 'http://localhost:3333';
+const baseURL = 'http://www.furnishmypad.com:3000';
 
 const instance = axios.create({
   baseURL,
-  headers: { 'Content-type': 'application/json' },
+  headers: {'Content-type': 'application/json'},
   timeout: 3000,
 });
 
@@ -16,3 +13,24 @@ export const getAccount = async (name: string) =>
     (response) => response.data,
     (_err) => null,
   );
+
+export const registerToken = async (token: string) =>
+  instance.post('/notification', {token}).then(
+    (response) => response.data,
+    (_err) => null,
+  );
+
+interface Imessage {
+  message: string;
+  title?: string;
+}
+
+export const sendNotification = async (message: Imessage, tokens: string[]) => {
+  tokens.forEach((token) => {
+    const notificationBody = {...message, token};
+    instance.post('/notification/send', notificationBody).then(
+      (response) => response.data,
+      (err) => console.log(err.message),
+    );
+  });
+};
