@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -26,7 +26,15 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
+  const [deviceToken, setDeviceToken] = useState('');
+
+  console.log('deviceToken', deviceToken);
+
   useEffect(() => {
+    messaging()
+      .getToken()
+      .then((response) => setDeviceToken(response));
+
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       Alert.alert(remoteMessage?.notification?.body ?? '');
     });
