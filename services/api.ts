@@ -20,6 +20,12 @@ export const registerToken = async (token: string) =>
     (_err) => null,
   );
 
+export const readAllTokens = async () =>
+  instance.get('/notification').then(
+    (response) => response.data,
+    (_err) => [],
+  );
+
 interface Imessage {
   message: string;
   title?: string;
@@ -30,7 +36,7 @@ export const sendNotification = async (message: Imessage, tokens: string[]) => {
     const notificationBody = {...message, token};
     instance.post('/notification/send', notificationBody).then(
       (response) => response.data,
-      (err) => console.log(err.message),
+      (_err) => null,
     );
   });
 };

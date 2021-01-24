@@ -23,16 +23,29 @@ import messaging from '@react-native-firebase/messaging';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-import {sendNotification, registerToken} from './services/api';
+import {sendNotification, registerToken, readAllTokens} from './services/api';
 
 declare const global: {HermesInternal: null | {}};
 
+interface Itoken {
+  token: string;
+}
+
 const App = () => {
+  const [accountName] = useState('Alex');
+  const [tokensArray, setTokensArray] = useState([]);
+
+  const notificationMessage = `Notification from ${accountName}`;
 
   useEffect(() => {
     messaging()
       .getToken()
       .then((response) => registerToken(response));
+
+    readAllTokens().then((response) => {
+      const formattedArray = response.map(({token}: Itoken) => token);
+      return setTokensArray(formattedArray);
+    });
 
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       Alert.alert(remoteMessage?.notification?.body ?? '');
@@ -49,14 +62,14 @@ const App = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>This page is for</Text>
+            <Text style={styles.sectionTitle}>
+              This page is for {accountName}
+            </Text>
           </View>
           <Button
-            title="NOTIFICATION"
+            title="SEND NOTIFICATION"
             onPress={() =>
-              sendNotification({message: 'hi'}, [
-                'czEJ_PhqRoGU0w4eumx043:APA91bGFpxAAH7IyBjMvX_Jo8uCpXBivJZ68OLJBlzlRWOcIvDUesXWQashkGkEWTnjsOVEpaJm42rYiZ5NUgVUfltyWvhsWhGKGlU47Q-YReyNQNo91S4Pupb_Hi_YE9F5mz04xu_-h',
-              ])
+              sendNotification({message: notificationMessage}, tokensArray)
             }
           />
         </ScrollView>
