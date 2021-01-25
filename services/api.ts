@@ -40,3 +40,10 @@ export const sendNotification = async (message: Imessage, tokens: string[]) => {
     );
   });
 };
+
+export const readAllAccounts = async () => {
+  instance.get('/admin').then(
+    (response) => response.data,
+    (_err) => [],
+  );
+};
